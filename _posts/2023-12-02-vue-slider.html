@@ -3,6 +3,10 @@
   <head>
     <title>2023-12-02-vue-slider.md</title>
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; img-src 'self' data:"
+    />
 
     <style>
       /* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
@@ -443,7 +447,7 @@
     </p>
     <p>
       <img
-        src="/assets/2023-12-02-vue-slider/slider_event_cycle.png"
+        src="../assets/2023-12-02-vue-slider/slider_event_cycle.png"
         alt="slider_event_cycle.png"
       />
     </p>
@@ -802,7 +806,7 @@ currentCoord.value.x = currentCoord.value.x + moveX;
     <p>
       다음과 같은 태그 구조로 슬라이드를 컴포넌트화 할것이다.
       <img
-        src="/assets/2023-12-02-vue-slider/tag_structure.png"
+        src="../assets/2023-12-02-vue-slider/tag_structure.png"
         alt="tag_structure"
       />
     </p>
@@ -943,7 +947,7 @@ const { currentCoord, initializeSlideStart } = useSlider(
     </ol>
     <p>
       <img
-        src="/assets/2023-12-02-vue-slider/default_slider.gif"
+        src="../assets/2023-12-02-vue-slider/default_slider.gif"
         alt="default_slider"
       />
     </p>
@@ -1086,7 +1090,7 @@ onSlideEnd.value = <span class="hljs-function"><span class="hljs-params">()</spa
     </ol>
     <p>
       <img
-        src="/assets/2023-12-02-vue-slider/free_slider.gif"
+        src="../assets/2023-12-02-vue-slider/free_slider.gif"
         alt="free_slider"
       />
     </p>
@@ -1113,7 +1117,7 @@ onSlideEnd.value = <span class="hljs-function"><span class="hljs-params">()</spa
     <p>판단하는 방법은 다음과 같다.</p>
     <p>
       <img
-        src="/assets/2023-12-02-vue-slider/left_judgment.png"
+        src="../assets/2023-12-02-vue-slider/left_judgment.png"
         alt="left_judgment"
       />
     </p>
@@ -1246,7 +1250,7 @@ onSlideEnd.value = <span class="hljs-function"><span class="hljs-params">()</spa
     </ol>
     <p>
       <img
-        src="/assets/2023-12-02-vue-slider/left_slider.gif"
+        src="../assets/2023-12-02-vue-slider/left_slider.gif"
         alt="left_slider"
       />
     </p>
@@ -1261,13 +1265,13 @@ onSlideEnd.value = <span class="hljs-function"><span class="hljs-params">()</spa
     </p>
     <p>
       <img
-        src="/assets/2023-12-02-vue-slider/slider_result.gif"
+        src="../assets/2023-12-02-vue-slider/slider_result.gif"
         alt="slider_result"
       />
     </p>
     <p>
       <img
-        src="/assets/2023-12-02-vue-slider/mobild_slider_result.gif"
+        src="../assets/2023-12-02-vue-slider/mobild_slider_result.gif"
         alt="slider_mobile_result"
       />
     </p>
