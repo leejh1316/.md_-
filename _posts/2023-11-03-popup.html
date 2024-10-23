@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>2023-11-03-popup.md</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+
+    <style>
+      /* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+      /*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+      body {
+        font-family: var(
+          --vscode-markdown-font-family,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe WPC",
+          "Segoe UI",
+          "Ubuntu",
+          "Droid Sans",
+          sans-serif
+        );
+        font-size: var(--vscode-markdown-font-size, 14px);
+        padding: 0 26px;
+        line-height: var(--vscode-markdown-line-height, 22px);
+        word-wrap: break-word;
+      }
+
+      #code-csp-warning {
+        position: fixed;
+        top: 0;
+        right: 0;
+        color: white;
+        margin: 16px;
+        text-align: center;
+        font-size: 12px;
+        font-family: sans-serif;
+        background-color: #444444;
+        cursor: pointer;
+        padding: 6px;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+      }
+
+      #code-csp-warning:hover {
+        text-decoration: none;
+        background-color: #007acc;
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+      }
+
+      body.scrollBeyondLastLine {
+        margin-bottom: calc(100vh - 22px);
+      }
+
+      body.showEditorSelection .code-line {
+        position: relative;
+      }
+
+      body.showEditorSelection .code-active-line:before,
+      body.showEditorSelection .code-line:hover:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -12px;
+        height: 100%;
+      }
+
+      body.showEditorSelection li.code-active-line:before,
+      body.showEditorSelection li.code-line:hover:before {
+        left: -30px;
+      }
+
+      .vscode-light.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.15);
+      }
+
+      .vscode-light.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.4);
+      }
+
+      .vscode-light.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+      }
+
+      .vscode-dark.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.4);
+      }
+
+      .vscode-dark.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.6);
+      }
+
+      .vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+      }
+
+      .vscode-high-contrast.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 160, 0, 0.7);
+      }
+
+      .vscode-high-contrast.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 160, 0, 1);
+      }
+
+      .vscode-high-contrast.showEditorSelection
+        .code-line
+        .code-line:hover:before {
+        border-left: none;
+      }
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      a:focus,
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 1px solid -webkit-focus-ring-color;
+        outline-offset: -1px;
+      }
+
+      hr {
+        border: 0;
+        height: 2px;
+        border-bottom: 2px solid;
+      }
+
+      h1 {
+        padding-bottom: 0.3em;
+        line-height: 1.2;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-weight: normal;
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+
+      table > thead > tr > th {
+        text-align: left;
+        border-bottom: 1px solid;
+      }
+
+      table > thead > tr > th,
+      table > thead > tr > td,
+      table > tbody > tr > th,
+      table > tbody > tr > td {
+        padding: 5px 10px;
+      }
+
+      table > tbody > tr + tr > td {
+        border-top: 1px solid;
+      }
+
+      blockquote {
+        margin: 0 7px 0 5px;
+        padding: 0 16px 0 10px;
+        border-left-width: 5px;
+        border-left-style: solid;
+      }
+
+      code {
+        font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New",
+          monospace, "Droid Sans Fallback";
+        font-size: 1em;
+        line-height: 1.357em;
+      }
+
+      body.wordWrap pre {
+        white-space: pre-wrap;
+      }
+
+      pre:not(.hljs),
+      pre.hljs code > div {
+        padding: 16px;
+        border-radius: 3px;
+        overflow: auto;
+      }
+
+      pre code {
+        color: var(--vscode-editor-foreground);
+        tab-size: 4;
+      }
+
+      /** Theming */
+
+      .vscode-light pre {
+        background-color: rgba(220, 220, 220, 0.4);
+      }
+
+      .vscode-dark pre {
+        background-color: rgba(10, 10, 10, 0.4);
+      }
+
+      .vscode-high-contrast pre {
+        background-color: rgb(0, 0, 0);
+      }
+
+      .vscode-high-contrast h1 {
+        border-color: rgb(0, 0, 0);
+      }
+
+      .vscode-light table > thead > tr > th {
+        border-color: rgba(0, 0, 0, 0.69);
+      }
+
+      .vscode-dark table > thead > tr > th {
+        border-color: rgba(255, 255, 255, 0.69);
+      }
+
+      .vscode-light h1,
+      .vscode-light hr,
+      .vscode-light table > tbody > tr + tr > td {
+        border-color: rgba(0, 0, 0, 0.18);
+      }
+
+      .vscode-dark h1,
+      .vscode-dark hr,
+      .vscode-dark table > tbody > tr + tr > td {
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+    </style>
+
+    <style>
+      /* Tomorrow Theme */
+      /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+      /* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+      /* Tomorrow Comment */
+      .hljs-comment,
+      .hljs-quote {
+        color: #8e908c;
+      }
+
+      /* Tomorrow Red */
+      .hljs-variable,
+      .hljs-template-variable,
+      .hljs-tag,
+      .hljs-name,
+      .hljs-selector-id,
+      .hljs-selector-class,
+      .hljs-regexp,
+      .hljs-deletion {
+        color: #c82829;
+      }
+
+      /* Tomorrow Orange */
+      .hljs-number,
+      .hljs-built_in,
+      .hljs-builtin-name,
+      .hljs-literal,
+      .hljs-type,
+      .hljs-params,
+      .hljs-meta,
+      .hljs-link {
+        color: #f5871f;
+      }
+
+      /* Tomorrow Yellow */
+      .hljs-attribute {
+        color: #eab700;
+      }
+
+      /* Tomorrow Green */
+      .hljs-string,
+      .hljs-symbol,
+      .hljs-bullet,
+      .hljs-addition {
+        color: #718c00;
+      }
+
+      /* Tomorrow Blue */
+      .hljs-title,
+      .hljs-section {
+        color: #4271ae;
+      }
+
+      /* Tomorrow Purple */
+      .hljs-keyword,
+      .hljs-selector-tag {
+        color: #8959a8;
+      }
+
+      .hljs {
+        display: block;
+        overflow-x: auto;
+        color: #4d4d4c;
+        padding: 0.5em;
+      }
+
+      .hljs-emphasis {
+        font-style: italic;
+      }
+
+      .hljs-strong {
+        font-weight: bold;
+      }
+    </style>
+
+    <style>
+      /*
+ * Markdown PDF CSS
+ */
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI",
+          "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+        padding: 0 12px;
+      }
+
+      pre {
+        background-color: #f8f8f8;
+        border: 1px solid #cccccc;
+        border-radius: 3px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      pre:not(.hljs) {
+        padding: 23px;
+        line-height: 19px;
+      }
+
+      blockquote {
+        background: rgba(127, 127, 127, 0.1);
+        border-color: rgba(0, 122, 204, 0.5);
+      }
+
+      .emoji {
+        height: 1.4em;
+      }
+
+      code {
+        font-size: 14px;
+        line-height: 19px;
+      }
+
+      /* for inline code */
+      :not(pre):not(.hljs) > code {
+        color: #c9ae75; /* Change the old color so it seems less like an error */
+        font-size: inherit;
+      }
+
+      /* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+      .page {
+        page-break-after: always;
+      }
+    </style>
+
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+  </head>
+  <body>
+    <script>
+      mermaid.initialize({
+        startOnLoad: true,
+        theme:
+          document.body.classList.contains("vscode-dark") ||
+          document.body.classList.contains("vscode-high-contrast")
+            ? "dark"
+            : "default",
+      });
+    </script>
+    <a href="2023-12-02-vue-slider.html">[post] vue-slider</a>
+    <h1>Popup 만들어보기</h1>
+    <p>
+      웹서핑을 하다보면 다음과 같은 특징을 가진 요소가 등장한다.<br />
+      <img src="../assets/img/2023-11-03-popup/tooltip.png" alt="tooltip.png" />
+      위 이미지와 같은 역할을 하는 기능을 만들것이다.
+    </p>
+    <h1 id="%EA%B3%A0%EB%AF%BC">고민</h1>
+    <p>내가 원하는 기능은 다음과 같다.</p>
+    <ul>
+      <li>간단한 몇 줄의 코드로 팝업 요소를 구현할 수 있어야 한다.</li>
+      <li>옵션에 의해 팝업요소를 설정 할 수 있어야 한다.</li>
+      <li>옵션이 재설정 될 수 있어야 한다.</li>
+      <li>팝업요소가 화면에 벗어날 떄 보이는 위치로 재조정 돼야한다.</li>
+    </ul>
+    <h1 id="%ED%8C%9D%EC%97%85-%EC%9A%94%EC%86%8C%EC%9D%98-%EB%B0%B0%EC%B9%98">
+      팝업 요소의 배치
+    </h1>
+    <p>다음은 팝업 요소를 배치하기 위해 생각한 방법들이다.</p>
+    <ul>
+      <li>
+        부모 요소 내부에 popup 요소를 배치하여 부모요소부터 상대좌표를 이용한다.
+      </li>
+      <li>절대좌표를 이용하여 popup 요소를 배치한다.</li>
+    </ul>
+    <h2
+      id="%EC%83%81%EB%8C%80%EC%A2%8C%ED%91%9C%EB%A5%BC-%ED%86%B5%ED%95%9C-%EB%B0%B0%EC%B9%98"
+    >
+      상대좌표를 통한 배치
+    </h2>
+    <p>처음 구현할때는 부모요소 내부에 팝업요소를 배치하여 구현했다.</p>
+    <p>
+      부모 요소 내부에 팝업 요소를 배치하는 방식은 구조상으로도 매우 깔끔해
+      보였고, 간단하게 구현 할 수 있기 때문이다.
+    </p>
+    <p>다음 코드를 보아라</p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"parent"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"popup"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+<span class="hljs-keyword">const</span> parent = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#parent'</span>);
+<span class="hljs-keyword">const</span> popup = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#popup'</span>);
+popup.style.left = parent.offsetWidht;
+popup.style.top = <span class="hljs-number">0</span>;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+<span class="hljs-selector-class">.parent</span>{
+  <span class="hljs-attribute">position</span>: relative;
+  <span class="hljs-attribute">width</span>:<span class="hljs-number">10px</span>;
+  <span class="hljs-attribute">height</span>:<span class="hljs-number">10px</span>;
+}
+<span class="hljs-selector-class">.popup</span>{
+  <span class="hljs-attribute">position</span>: absolute;
+  <span class="hljs-attribute">widht</span>:<span class="hljs-number">20px</span>;
+  <span class="hljs-attribute">height</span>:<span class="hljs-number">50px</span>;
+}
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+</div></code></pre>
+    <p>위 코드에서 팝업요소의 배치위치는 부모요소의 우상단에 맞춰진 좌표다.</p>
+    <p>
+      부모요소의 position을 relactive, 팝업요소를 absolute로 맞춰주는 번거로운
+      작업이 있지만 script 코드가 간단하니 괜찮은것 같다.
+    </p>
+    <p>
+      이제 다양한 좌표를 구현한 식과 옵션을 함수형식으로만 표현해준다면 원하는
+      기능이 완성된다.
+    </p>
+    <p>하지만 나는 이 방법을 폐기했다.</p>
+    <h3 id="%EC%99%9C-%ED%8F%90%EA%B8%B0%ED%96%88%EB%8A%94%EA%B0%80">
+      왜 폐기했는가?
+    </h3>
+    <p>위 방법으로 시도하면 어떤 문제가 발생하는지 생각해봐야 한다.</p>
+    <p>
+      <strong>1. 부모요소에 overflow:hidden 속성이 들어간 경우</strong><br />
+      우선 overflow:hidden 속성에 대해 알아야 한다.
+    </p>
+    <blockquote>
+      <p>
+        overflow:hidden은 적용한 요소의 크기를 벗어난 자식 요소는 보이지 않게
+        된다.
+      </p>
+    </blockquote>
+    <p>
+      위 코드는 overflow: hidden의 특징 때문에 팝업 요소가 보이지 않게 된다.<br />
+      팝업 요소는 부내태그의 내부에 있고 좌표 이동을 통해 부모 요소를 완전히
+      벗어났기 때문에 완전히 보이지 않게 된다.
+    </p>
+    <p>
+      <strong>2. position: relactive 를 사용하지 못하는 경우</strong>
+      position:relactive의 특징에 대해 알아야 한다.
+    </p>
+    <blockquote>
+      <p>
+        position: relactive의 특징은 이 포지션을 사용한 요로를 기점으로 내부
+        style의 특정 값들을 계산한다. 예를들어 width:20px 일때 내부 자식에서
+        width:100%를 하게 된다면 내부 자식의 width값은 20px이 된다.
+      </p>
+    </blockquote>
+    <blockquote>
+      <p>
+        position: absolute의 특징은 body 또는, relactive에 의해 상대적으로
+        배치된다. 예를들어 top:0, left:0이라면, relactive된 부모 요소의 (0,0)
+        좌표 즉 좌상단에 배치된다.
+      </p>
+    </blockquote>
+    <p>
+      즉 이런 특징을 이용한 ui일 경우엔 popup요소의 배치위치에 대한 신뢰성이
+      무너지게 된다. 원치 않은 좌표에 팝업 요소가 배치될 가능성이 높기 때문이다.
+    </p>
+    <h2
+      id="%EC%A0%88%EB%8C%80%EC%A2%8C%ED%91%9C%EB%A5%BC-%ED%86%B5%ED%95%9C-%EB%B0%B0%EC%B9%98"
+    >
+      절대좌표를 통한 배치
+    </h2>
+    <p>
+      절대좌표로 팝업을 배치한다면 태그의 시작점인 body 태그에 배치해야한다.
+    </p>
+    <p>
+      절대좌표를 이용하여 팝업을 배치하면 상대좌표를 이용한 배치의 문제점을 해결
+      할 수 있다.
+    </p>
+    <ol>
+      <li>
+        overflow:hidden? 최상위 태그의 바로 아래에 배치할 것이니 z-index 또는,
+        화면을 벗어나는 경우만 생각하면 된다.
+      </li>
+      <li>
+        position: relactive? 해당 포지션 정책을 찾지 못하면 최상위 태그인
+        body태그를 기점으로 특정 style 값들이 계산되니 신경쓸 필요가 없다.
+      </li>
+    </ol>
+    <h3 id="%EC%A0%88%EB%8C%80%EC%A2%8C%ED%91%9C-%EA%B3%84%EC%82%B0">
+      절대좌표 계산
+    </h3>
+    <p>팝업요소의 배치위치를 구분해줘야 한다.</p>
+    <p>
+      각 배치위치에 대한 좌표는 하나하나씩 직접 구현해줘야 한다. 우선 나는 총
+      12군데의 배치 위치를 구분했다.
+    </p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-keyword">type</span> Placement =
+  | <span class="hljs-string">"top"</span> <span class="hljs-comment">//top center</span>
+  | <span class="hljs-string">"top-right"</span>
+  | <span class="hljs-string">"top-left"</span>
+  | <span class="hljs-string">"right"</span> <span class="hljs-comment">//right center</span>
+  | <span class="hljs-string">"right-top"</span>
+  | <span class="hljs-string">"right-bottom"</span>
+  | <span class="hljs-string">"bottom"</span> <span class="hljs-comment">//bottom center</span>
+  | <span class="hljs-string">"bottom-right"</span>
+  | <span class="hljs-string">"bottom-left"</span>
+  | <span class="hljs-string">"left"</span> <span class="hljs-comment">//left center</span>
+  | <span class="hljs-string">"left-top"</span>
+  | <span class="hljs-string">"left-bottom"</span>;
+</div></code></pre>
+    <p>
+      여기서 다시한번 원하는 기능을 하기위해 좌표계산을 어떻게 구현할지 설계를
+      해야 한다.
+    </p>
+    <ol>
+      <li>placement가 추가 될 수 있다.</li>
+      <li>옵션에 의해 설정, 재설정 될 수 있다.</li>
+    </ol>
+    <p>
+      전략 패턴을 사용한다면 위와같은 조건을 해결 할 수 있다.<br />
+      작성한 코드가 매우 긴 관게로 간략히 핵심 코드만 보여주겠다.
+    </p>
+    <p>추상화한 전략 클래스 이다.</p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> PlacementStrategy {
+  <span class="hljs-keyword">protected</span> referenceRect: DOMRect;
+  <span class="hljs-keyword">protected</span> popupRect: DOMRect;
+  <span class="hljs-keyword">protected</span> options: Options;
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">referenceRect: DOMRect, popupRect: DOMRect, options: Options</span>) {
+    <span class="hljs-keyword">this</span>.referenceRect = referenceRect;
+    <span class="hljs-keyword">this</span>.popupRect = popupRect;
+    <span class="hljs-keyword">this</span>.options = options;
+  }
+  <span class="hljs-keyword">abstract</span> getCoordinate(): Coordinate;
+}
+</div></code></pre>
+    <blockquote>
+      <p>
+        DOMRect : element.getBoundingClientRect() 의 반환되는 값의
+        타입이다.viewport를 기점으로 계산된 좌표값과 요소의 크저에 대한 정보가
+        들어있는 객체다.
+      </p>
+    </blockquote>
+    <p>다음은 전략을 구현한 left의 클래스 이다.</p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-keyword">class</span> PlacementLeft <span class="hljs-keyword">extends</span> PlacementStrategy {
+  getCoordinate(): Coordinate {
+    <span class="hljs-keyword">return</span> {
+      top:
+        <span class="hljs-keyword">this</span>.referenceRect.height / <span class="hljs-number">2</span> +
+        (<span class="hljs-keyword">this</span>.referenceRect.top + scrollY) -
+        <span class="hljs-keyword">this</span>.popupRect.height / <span class="hljs-number">2</span>,
+      left:
+        <span class="hljs-keyword">this</span>.referenceRect.left +
+        scrollX -
+        <span class="hljs-keyword">this</span>.popupRect.width -
+        <span class="hljs-keyword">this</span>.options.gap,
+    };
+  }
+}
+</div></code></pre>
+    <p>Options 에 대한 설명은 이후 뒤에 서술하겠다.</p>
+    <p>위 계산을 통해 팝업 요소는 참조 요소의 왼쪽 가운데에 배치된다.</p>
+    <p><img src="../assets/img/2023-11-03-popup/left.png" alt="left.png" /></p>
+    <p>위와 같은 방식으로 총 12군데의 배치 좌표를 구현했다.</p>
+    <p>
+      팝업 요소를 생성할때 어떤 전략을 사용할지 알 수 없기 때문에 팩토리 함수를
+      구현해줘야 한다.
+    </p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-keyword">const</span> usePlacement = (
+  placement: Placement,
+  referenceRect: DOMRect,
+  popupRect: DOMRect,
+  options: Options
+): <span class="hljs-function"><span class="hljs-params">PlacementStrategy</span> =&gt;</span> {
+  <span class="hljs-keyword">switch</span> (placement) {
+    <span class="hljs-keyword">case</span> <span class="hljs-string">"bottom"</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PlacementBottom(referenceRect, popupRect, options);
+    <span class="hljs-keyword">case</span> <span class="hljs-string">"bottom-left"</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PlacementBottomLeft(referenceRect, popupRect, options);
+    <span class="hljs-keyword">case</span> <span class="hljs-string">"bottom-right"</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PlacementBottomRight(referenceRect, popupRect, options);
+    <span class="hljs-keyword">case</span> <span class="hljs-string">"left"</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PlacementLeft(referenceRect, popupRect, options);
+    <span class="hljs-keyword">case</span> <span class="hljs-string">"left-bottom"</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PlacementLeftBottom(referenceRect, popupRect, options);
+    <span class="hljs-keyword">case</span> <span class="hljs-string">"left-top"</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PlacementLeftTop(referenceRect, popupRect, options);
+    <span class="hljs-keyword">case</span> <span class="hljs-string">"right"</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PlacementRight(referenceRect, popupRect, options);
+    <span class="hljs-keyword">case</span> <span class="hljs-string">"right-bottom"</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PlacementRightBottom(referenceRect, popupRect, options);
+    <span class="hljs-keyword">case</span> <span class="hljs-string">"right-top"</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PlacementRightTop(referenceRect, popupRect, options);
+    <span class="hljs-keyword">case</span> <span class="hljs-string">"top"</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PlacementTop(referenceRect, popupRect, options);
+    <span class="hljs-keyword">case</span> <span class="hljs-string">"top-left"</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PlacementTopLeft(referenceRect, popupRect, options);
+    <span class="hljs-keyword">case</span> <span class="hljs-string">"top-right"</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> PlacementTopRight(referenceRect, popupRect, options);
+    <span class="hljs-keyword">default</span>:
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Unsupported placement: <span class="hljs-subst">${placement}</span>`</span>);
+  }
+};
+</div></code></pre>
+    <p>
+      지금부터 이 함수를 사용하면 원하는 전략을 선택하여 사용할 수 있을 것이다.
+    </p>
+    <h1 id="%EC%98%B5%EC%85%98">옵션</h1>
+    <p>팝업의 설정을 다루는 옵션을 만들어야 한다.</p>
+    <p>옵션의 인터페이스를 만들어 보자.</p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-keyword">interface</span> Options {
+  placement?: Placement;
+  gap?: <span class="hljs-built_in">number</span>;
+}
+</div></code></pre>
+    <p>Placement는 위에서 설명한 12군데의 위치를 말한다.</p>
+    <p>gap은 참조요소와 팝업요소의 사이값을 정한다.</p>
+    <h1 id="popup-core">popup-core</h1>
+    <p>화면 벗어남을 처리하기 전에 원하는 대로 동작하는지 확인해 봐야 한다.</p>
+    <p>먼저 옵션 설정 및 핵심적인 로직을 처리하는 클래스를 만들어 보자</p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-keyword">class</span> Popup(){
+  <span class="hljs-keyword">private</span> options: Options;
+  <span class="hljs-keyword">private</span> referenceElement: HTMLElement;
+  <span class="hljs-keyword">private</span> popupElement: HTMLElement;
+  <span class="hljs-keyword">private</span> placementStrategy: PlacementStrategy;
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    referenceElement: HTMLElement,
+    popupElement: HTMLElement,
+    options?: Options
+  </span>) {
+    <span class="hljs-keyword">this</span>.options = { ...defaultOptions, ...options }; <span class="hljs-comment">//defaultOptions에 options의 값을 덮어쓰기 한다.</span>
+    <span class="hljs-keyword">this</span>.referenceElement = referenceElement;
+    <span class="hljs-keyword">this</span>.popupElement = popupElement;
+    <span class="hljs-keyword">this</span>.update();
+    <span class="hljs-comment">//요소를 2번째 인자 뒤로 옮기는 함수다. 여기선 팝업 요소를 body태그 내부에서 마지막(null) 으로 옮기는 역할을 한다.</span>
+    <span class="hljs-built_in">document</span>.body.insertBefore(<span class="hljs-keyword">this</span>.popupElement, <span class="hljs-literal">null</span>);
+  }
+  <span class="hljs-comment">// 팝업 요소의 초기화와 설정으로 변경될 수 있는 값들을 처리하는 로직이다.</span>
+  <span class="hljs-keyword">private</span> update(): <span class="hljs-built_in">void</span> {
+    <span class="hljs-comment">// 사용할 placement를 설정한다.</span>
+    <span class="hljs-keyword">this</span>.placementStrategy = usePlacement(
+      <span class="hljs-keyword">this</span>.options.placement,
+      <span class="hljs-keyword">this</span>.referenceElement.getBoundingClientRect(),
+      <span class="hljs-keyword">this</span>.popupElement.getBoundingClientRect(),
+      <span class="hljs-keyword">this</span>.options
+    );
+    <span class="hljs-comment">//  팝업요소를 배치한다.</span>
+    <span class="hljs-keyword">this</span>.place(<span class="hljs-keyword">this</span>.placementStrategy.getCoodinate());
+  }
+  <span class="hljs-comment">//옵션 수정 함수</span>
+  <span class="hljs-keyword">public</span> setOptions(options: Options) {
+    <span class="hljs-keyword">this</span>.options = { ...this.options, ...options }; <span class="hljs-comment">// 옵션 덮어쓰기</span>
+    <span class="hljs-keyword">this</span>.update();
+  }
+  <span class="hljs-comment">// 팝옵요소를 배치하는 함수</span>
+  <span class="hljs-keyword">private</span> place(coord: Coordinate): <span class="hljs-built_in">void</span> {
+    <span class="hljs-keyword">this</span>.popupElement.style.position = <span class="hljs-string">"absolute"</span>;
+    <span class="hljs-keyword">this</span>.popupElement.style.top = <span class="hljs-string">`<span class="hljs-subst">${coord.top}</span>px`</span>;
+    <span class="hljs-keyword">this</span>.popupElement.style.left = <span class="hljs-string">`<span class="hljs-subst">${coord.left}</span>px`</span>;
+  }
+}
+</div></code></pre>
+    <p>주석을 달아놨으니 참고하길 바란다.</p>
+    <h1 id="createpopup">createPopup</h1>
+    <p>핵심 클래스를 만들었으니 핵심 클래스를 사용하는 함수를 만들어 준다.</p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createPopup</span>(<span class="hljs-params">
+  reference: HTMLElement,
+  popup: HTMLElement,
+  options?: Options
+</span>): <span class="hljs-title">Popup</span> </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Popup(reference, popup, options);
+}
+</div></code></pre>
+    <p>실제 사용시 코드를 보아라.</p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"reference"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"popup"</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+<span class="hljs-selector-class">.reference</span>{
+  <span class="hljs-attribute">width</span>:<span class="hljs-number">150px</span>;
+  <span class="hljs-attribute">height</span>:<span class="hljs-number">150px</span>;
+  <span class="hljs-attribute">background-color</span>:<span class="hljs-number">#19a1a8</span>;
+}
+<span class="hljs-selector-class">.popup</span>{
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">50px</span>;
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">50px</span>;
+  <span class="hljs-attribute">background-color</span>:<span class="hljs-number">#2375ff</span>;
+}
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+<span class="hljs-keyword">const</span> reference = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#refernce'</span>)
+<span class="hljs-keyword">const</span> popup = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#popup'</span>)
+
+<span class="hljs-keyword">const</span> myPopup = createPopup(reference, popup, {
+  <span class="hljs-attr">placement</span>: <span class="hljs-string">'bottom'</span>,
+  <span class="hljs-attr">gap</span>: <span class="hljs-number">12</span>
+})
+myPopup.setOptions({
+  <span class="hljs-attr">placement</span>: <span class="hljs-string">'right-top'</span>,
+  <span class="hljs-attr">gap</span>:<span class="hljs-number">0</span>
+})
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</div></code></pre>
+    <p>
+      결과를 확인해 본다면 최종적으로 참조요소와 달라붙은 팝업 요소가 보일
+      것이다.
+    </p>
+    <p><small>최종 결과물을 js로 빌드했으니 직접 사용해 보아라.</small></p>
+    <p
+      class="codepen"
+      data-height="300"
+      data-default-tab="html,result"
+      data-slug-hash="eYxBOqM"
+      data-user="oophxzfe-the-solid"
+      style="
+        height: 300px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid;
+        margin: 1em 0;
+        padding: 1em;
+      "
+    >
+      <span
+        >See the Pen
+        <a href="https://codepen.io/oophxzfe-the-solid/pen/eYxBOqM">
+          Untitled</a
+        >
+        by 이재혁 (<a href="https://codepen.io/oophxzfe-the-solid"
+          >@oophxzfe-the-solid</a
+        >) on <a href="https://codepen.io">CodePen</a>.</span
+      >
+    </p>
+    <script
+      async
+      src="https://cpwebassets.codepen.io/assets/embed/ei.js"
+    ></script>
+    <p>하지만 화면을 벗어나면 팝업 요소가 안보이는것을 확인 할 수 있다.</p>
+    <p>이제 처음으로 돌아가 원했던 기능중 몇가지를 완료했는지 체크해보자.</p>
+    <ul>
+      <li>
+        <input type="checkbox" id="checkbox0" checked="true" /><label
+          for="checkbox0"
+          >간단한 몇 줄의 코드로 팝업 요소를 구현할 수 있어야 한다.</label
+        >
+      </li>
+      <li>
+        <input type="checkbox" id="checkbox1" checked="true" /><label
+          for="checkbox1"
+          >옵션에 의해 팝업요소를 설정 할 수 있어야 한다.</label
+        >
+      </li>
+      <li>
+        <input type="checkbox" id="checkbox2" checked="true" /><label
+          for="checkbox2"
+          >옵션이 재설정 될 수 있어야 한다.</label
+        >
+      </li>
+      <li>[] 팝업요소가 화면에 벗어날 떄 보이는 위치로 재조정 돼야한다.</li>
+    </ul>
+    <h1 id="%ED%99%94%EB%A9%B4-%EB%B2%97%EC%96%B4%EB%82%A8">화면 벗어남</h1>
+    <p>
+      팝업요소가 화면을 벗어나는 경우를 판단하는 방법은 viewport의 범위를
+      팝업요소가 넘어갔는지 확인해야 한다.
+    </p>
+    <p>다음은 팝업 전략 클래스이다.</p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> PlacementStrategy {
+  <span class="hljs-keyword">protected</span> referenceRect: DOMRect;
+  <span class="hljs-keyword">protected</span> popupRect: DOMRect;
+  <span class="hljs-keyword">protected</span> options: Options;
+  <span class="hljs-keyword">protected</span> coord: Coordinate; <span class="hljs-comment">// new!!</span>
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">referenceRect: DOMRect, popupRect: DOMRect, options: Options</span>) {
+    <span class="hljs-keyword">this</span>.referenceRect = referenceRect;
+    <span class="hljs-keyword">this</span>.popupRect = popupRect;
+    <span class="hljs-keyword">this</span>.options = options;
+    <span class="hljs-keyword">this</span>.coord = <span class="hljs-keyword">this</span>.getCoordinate(); <span class="hljs-comment">// new!!</span>
+  }
+  <span class="hljs-comment">// new!!</span>
+  <span class="hljs-comment">//overflow : true , not overflow : false</span>
+  <span class="hljs-keyword">public</span> checkOverflow(): <span class="hljs-built_in">boolean</span> {
+    <span class="hljs-keyword">return</span> !(
+      <span class="hljs-keyword">this</span>.coord.top &gt;= scrollY &amp;&amp;
+      <span class="hljs-keyword">this</span>.coord.left &gt;= scrollX &amp;&amp;
+      <span class="hljs-keyword">this</span>.coord.top + <span class="hljs-keyword">this</span>.popupRect.height &lt;= scrollY + innerHeight &amp;&amp;
+      <span class="hljs-keyword">this</span>.coord.left + <span class="hljs-keyword">this</span>.popupRect.width &lt;= scrollX + innerWidth
+    );
+  }
+  <span class="hljs-keyword">abstract</span> getCoordinate(): Coordinate;
+}
+</div></code></pre>
+    <p>주석으로 추가된 부분을 표시해 놨다.</p>
+    <p>생성자를 보면 팝업 요소의 좌표를 저장한다는걸 알 수 있을것이다.</p>
+    <p>
+      checkOverFlow()를 보면 팝업 요소의 상하좌우의 좌표가 viewport의 크기를
+      넘어가는지 확인하는 로직임을 알 수 있다.
+    </p>
+    <h2
+      id="%ED%99%94%EB%A9%B4%EC%9D%84-%EB%B2%97%EC%96%B4%EB%82%98%EB%8A%94-%EA%B2%BD%EC%9A%B0"
+    >
+      화면을 벗어나는 경우
+    </h2>
+    <p>화면을 벗어나는 경우는 2가지의 경우에서 발생한다.</p>
+    <ul>
+      <li>브라우저 창의 크기를 변경할 때</li>
+      <li>스크롤 했을 때</li>
+    </ul>
+    <p>관련 이벤트로 resize와, scroll 이벤트가 있다.</p>
+    <h2 id="%EC%98%B5%EC%85%98-%EC%88%98%EC%A0%95">옵션 수정</h2>
+    <p>이벤트를 옵션으로 관리할 것이다.</p>
+    <ol>
+      <li>매우 많은 이벤트 함수가 발생 할 수 있다.</li>
+      <li>해당 기능이 필요없을 수 도 있다.</li>
+    </ol>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-keyword">interface</span> Options {
+  placement?: Placement;
+  gap?: <span class="hljs-built_in">number</span>;
+  mode?: Mode;
+  event?: Event;
+}
+<span class="hljs-keyword">interface</span> Event {
+  resize?: <span class="hljs-built_in">boolean</span>;
+  scroll?: <span class="hljs-built_in">boolean</span>;
+}
+<span class="hljs-keyword">interface</span> Mode {
+  auto?: <span class="hljs-built_in">boolean</span>;
+}
+</div></code></pre>
+    <p>특정 이벤트가 발생하면 mode에 활성화된 함수를 실행할 계획이다.</p>
+    <h2 id="throttling">throttling</h2>
+    <p>
+      scroll 이벤트와 resize이벤트의 공통점은 매우 많은 이벤트가 감지된다는
+      것이다.
+    </p>
+    <p>
+      팝업 요소의 화면 넘어감을 방지하는 이벤트는 촘촘할 필요가 없으며, 필요없는
+      연산이 매우 많이 발생하기 때문에 성능저하의 가능성도 있다.
+    </p>
+    <blockquote>
+      <p>
+        스로틀링(Throttling): 함수의 호출을 제한하여 일정한 주기나 시간
+        간격으로만 호출되도록 한다. 주로 이벤트 핸들러나 반복적으로 호출되는
+        함수에 적용되어 연속적인 호출로 인한 성능 문제를 방지하거나 원하는
+        주기로 함수를 실행할 때 사용된다.
+      </p>
+    </blockquote>
+    <p>스로틀링 개념을 도입하여 최적화를 해야한다.</p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">throttle</span>(<span class="hljs-params">callback:()=&gt;<span class="hljs-built_in">any</span>, delay:<span class="hljs-built_in">number</span></span>)</span>{
+    <span class="hljs-keyword">let</span> wait = <span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-keyword">if</span>(wait) <span class="hljs-keyword">return</span>;
+        callback();
+        wait = <span class="hljs-literal">true</span>
+        setTimeout(<span class="hljs-function"><span class="hljs-params">()</span>=&gt;</span>{
+            wait = <span class="hljs-literal">false</span>
+        }, delay)
+    }
+}
+</div></code></pre>
+    <h2 id="popup-core-%EC%88%98%EC%A0%95">popup-core 수정</h2>
+    <p>화면 넘어감을 방지하기 위한 핵심코드를 작성해보자.</p>
+    <pre class="hljs"><code><div><span class="hljs-keyword">class</span> Popup {
+  <span class="hljs-comment">//event에 .bind를 하면 새 참조가 만들어짐 이를 받기위한 변수</span>
+  <span class="hljs-keyword">private</span> bindModeFunction: <span class="hljs-built_in">any</span>;
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">
+    referenceElement: HTMLElement,
+    popupElement: HTMLElement,
+    options?: Options
+  </span>) {
+    <span class="hljs-keyword">this</span>.bindModeFunction = throttle(<span class="hljs-keyword">this</span>.modeManage.bind(<span class="hljs-keyword">this</span>), <span class="hljs-number">100</span>);
+  }
+  <span class="hljs-comment">// 팝업요소 업데이트 함수</span>
+  <span class="hljs-keyword">private</span> update(): <span class="hljs-built_in">void</span> {
+    <span class="hljs-keyword">this</span>.eventManage();
+    <span class="hljs-keyword">this</span>.modeManage();
+  }
+  <span class="hljs-comment">/* modes */</span>
+  <span class="hljs-keyword">private</span> modeManage(): <span class="hljs-built_in">void</span> {
+    <span class="hljs-keyword">this</span>.auto();
+  }
+  <span class="hljs-keyword">private</span> auto(): <span class="hljs-built_in">void</span> {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.options.mode?.auto) {
+      <span class="hljs-comment">// 적힌 순서에 따라 연산한다.</span>
+      <span class="hljs-keyword">const</span> placementArray: Placement[] = [
+        <span class="hljs-string">"top"</span>,
+        <span class="hljs-string">"top-right"</span>,
+        <span class="hljs-string">"top-left"</span>,
+        <span class="hljs-string">"right"</span>,
+        <span class="hljs-string">"right-top"</span>,
+        <span class="hljs-string">"right-bottom"</span>,
+        <span class="hljs-string">"bottom"</span>,
+        <span class="hljs-string">"bottom-right"</span>,
+        <span class="hljs-string">"bottom-left"</span>,
+        <span class="hljs-string">"left"</span>,
+        <span class="hljs-string">"left-top"</span>,
+        <span class="hljs-string">"left-bottom"</span>
+      ];
+      <span class="hljs-comment">// 옵션에 설정된 placement가 화면 범위를 벗어났을때 실행한다.</span>
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.placementStrategy.checkOverflow()) {
+        <span class="hljs-comment">//순차적으로 연산하여 가장먼저 false가 나온 placement를 배치시키다.</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> placement of placementArray) {
+          <span class="hljs-comment">// if (this.placementStrategy.getPlacementName() === placement) continue;</span>
+          <span class="hljs-keyword">const</span> place = usePlacement(
+            placement,
+            <span class="hljs-keyword">this</span>.referenceElement.getBoundingClientRect(),
+            <span class="hljs-keyword">this</span>.popupElement.getBoundingClientRect(),
+            <span class="hljs-keyword">this</span>.options
+          );
+          <span class="hljs-keyword">if</span> (!place.checkOverflow()) {
+            <span class="hljs-keyword">this</span>.place(place.getCoordinate());
+            <span class="hljs-keyword">break</span>;
+          }
+        }
+      }
+      <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">this</span>.place(<span class="hljs-keyword">this</span>.defaultCoordinate);
+      }
+    }
+  }
+  <span class="hljs-comment">//이트트를 등록하고 지우는 함수이다. 옵션에 의해 등록, 삭제될 수 있다.</span>
+  <span class="hljs-keyword">private</span> eventManage(): <span class="hljs-built_in">void</span> {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.options.event?.resize)
+      <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">"resize"</span>, <span class="hljs-keyword">this</span>.bindModeFunction);
+    <span class="hljs-keyword">else</span> <span class="hljs-built_in">window</span>.removeEventListener(<span class="hljs-string">"resize"</span>, <span class="hljs-keyword">this</span>.bindModeFunction);
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.options.event?.scroll)
+      <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">"scroll"</span>, <span class="hljs-keyword">this</span>.bindModeFunction);
+    <span class="hljs-keyword">else</span> <span class="hljs-built_in">window</span>.removeEventListener(<span class="hljs-string">"scroll"</span>, <span class="hljs-keyword">this</span>.bindModeFunction);
+  }
+}
+</div></code></pre>
+    <p>추가된 부분만 작성하였다. 설명은 주석을 참고하길 바란다.</p>
+    <p>원했던 모든 기능을 구현했으니 글을 마치겠다.</p>
+  </body>
+</html>

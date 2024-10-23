@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>2023-12-02-vue-slider.md</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+
+    <style>
+      /* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+      /*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+      body {
+        font-family: var(
+          --vscode-markdown-font-family,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe WPC",
+          "Segoe UI",
+          "Ubuntu",
+          "Droid Sans",
+          sans-serif
+        );
+        font-size: var(--vscode-markdown-font-size, 14px);
+        padding: 0 26px;
+        line-height: var(--vscode-markdown-line-height, 22px);
+        word-wrap: break-word;
+      }
+
+      #code-csp-warning {
+        position: fixed;
+        top: 0;
+        right: 0;
+        color: white;
+        margin: 16px;
+        text-align: center;
+        font-size: 12px;
+        font-family: sans-serif;
+        background-color: #444444;
+        cursor: pointer;
+        padding: 6px;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+      }
+
+      #code-csp-warning:hover {
+        text-decoration: none;
+        background-color: #007acc;
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+      }
+
+      body.scrollBeyondLastLine {
+        margin-bottom: calc(100vh - 22px);
+      }
+
+      body.showEditorSelection .code-line {
+        position: relative;
+      }
+
+      body.showEditorSelection .code-active-line:before,
+      body.showEditorSelection .code-line:hover:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -12px;
+        height: 100%;
+      }
+
+      body.showEditorSelection li.code-active-line:before,
+      body.showEditorSelection li.code-line:hover:before {
+        left: -30px;
+      }
+
+      .vscode-light.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.15);
+      }
+
+      .vscode-light.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.4);
+      }
+
+      .vscode-light.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+      }
+
+      .vscode-dark.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.4);
+      }
+
+      .vscode-dark.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.6);
+      }
+
+      .vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+      }
+
+      .vscode-high-contrast.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 160, 0, 0.7);
+      }
+
+      .vscode-high-contrast.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 160, 0, 1);
+      }
+
+      .vscode-high-contrast.showEditorSelection
+        .code-line
+        .code-line:hover:before {
+        border-left: none;
+      }
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      a:focus,
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 1px solid -webkit-focus-ring-color;
+        outline-offset: -1px;
+      }
+
+      hr {
+        border: 0;
+        height: 2px;
+        border-bottom: 2px solid;
+      }
+
+      h1 {
+        padding-bottom: 0.3em;
+        line-height: 1.2;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-weight: normal;
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+
+      table > thead > tr > th {
+        text-align: left;
+        border-bottom: 1px solid;
+      }
+
+      table > thead > tr > th,
+      table > thead > tr > td,
+      table > tbody > tr > th,
+      table > tbody > tr > td {
+        padding: 5px 10px;
+      }
+
+      table > tbody > tr + tr > td {
+        border-top: 1px solid;
+      }
+
+      blockquote {
+        margin: 0 7px 0 5px;
+        padding: 0 16px 0 10px;
+        border-left-width: 5px;
+        border-left-style: solid;
+      }
+
+      code {
+        font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New",
+          monospace, "Droid Sans Fallback";
+        font-size: 1em;
+        line-height: 1.357em;
+      }
+
+      body.wordWrap pre {
+        white-space: pre-wrap;
+      }
+
+      pre:not(.hljs),
+      pre.hljs code > div {
+        padding: 16px;
+        border-radius: 3px;
+        overflow: auto;
+      }
+
+      pre code {
+        color: var(--vscode-editor-foreground);
+        tab-size: 4;
+      }
+
+      /** Theming */
+
+      .vscode-light pre {
+        background-color: rgba(220, 220, 220, 0.4);
+      }
+
+      .vscode-dark pre {
+        background-color: rgba(10, 10, 10, 0.4);
+      }
+
+      .vscode-high-contrast pre {
+        background-color: rgb(0, 0, 0);
+      }
+
+      .vscode-high-contrast h1 {
+        border-color: rgb(0, 0, 0);
+      }
+
+      .vscode-light table > thead > tr > th {
+        border-color: rgba(0, 0, 0, 0.69);
+      }
+
+      .vscode-dark table > thead > tr > th {
+        border-color: rgba(255, 255, 255, 0.69);
+      }
+
+      .vscode-light h1,
+      .vscode-light hr,
+      .vscode-light table > tbody > tr + tr > td {
+        border-color: rgba(0, 0, 0, 0.18);
+      }
+
+      .vscode-dark h1,
+      .vscode-dark hr,
+      .vscode-dark table > tbody > tr + tr > td {
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+    </style>
+
+    <style>
+      /* Tomorrow Theme */
+      /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+      /* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+      /* Tomorrow Comment */
+      .hljs-comment,
+      .hljs-quote {
+        color: #8e908c;
+      }
+
+      /* Tomorrow Red */
+      .hljs-variable,
+      .hljs-template-variable,
+      .hljs-tag,
+      .hljs-name,
+      .hljs-selector-id,
+      .hljs-selector-class,
+      .hljs-regexp,
+      .hljs-deletion {
+        color: #c82829;
+      }
+
+      /* Tomorrow Orange */
+      .hljs-number,
+      .hljs-built_in,
+      .hljs-builtin-name,
+      .hljs-literal,
+      .hljs-type,
+      .hljs-params,
+      .hljs-meta,
+      .hljs-link {
+        color: #f5871f;
+      }
+
+      /* Tomorrow Yellow */
+      .hljs-attribute {
+        color: #eab700;
+      }
+
+      /* Tomorrow Green */
+      .hljs-string,
+      .hljs-symbol,
+      .hljs-bullet,
+      .hljs-addition {
+        color: #718c00;
+      }
+
+      /* Tomorrow Blue */
+      .hljs-title,
+      .hljs-section {
+        color: #4271ae;
+      }
+
+      /* Tomorrow Purple */
+      .hljs-keyword,
+      .hljs-selector-tag {
+        color: #8959a8;
+      }
+
+      .hljs {
+        display: block;
+        overflow-x: auto;
+        color: #4d4d4c;
+        padding: 0.5em;
+      }
+
+      .hljs-emphasis {
+        font-style: italic;
+      }
+
+      .hljs-strong {
+        font-weight: bold;
+      }
+    </style>
+
+    <style>
+      /*
+ * Markdown PDF CSS
+ */
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI",
+          "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+        padding: 0 12px;
+      }
+
+      pre {
+        background-color: #f8f8f8;
+        border: 1px solid #cccccc;
+        border-radius: 3px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      pre:not(.hljs) {
+        padding: 23px;
+        line-height: 19px;
+      }
+
+      blockquote {
+        background: rgba(127, 127, 127, 0.1);
+        border-color: rgba(0, 122, 204, 0.5);
+      }
+
+      .emoji {
+        height: 1.4em;
+      }
+
+      code {
+        font-size: 14px;
+        line-height: 19px;
+      }
+
+      /* for inline code */
+      :not(pre):not(.hljs) > code {
+        color: #c9ae75; /* Change the old color so it seems less like an error */
+        font-size: inherit;
+      }
+
+      /* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+      .page {
+        page-break-after: always;
+      }
+    </style>
+
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+  </head>
+  <body>
+    <script>
+      mermaid.initialize({
+        startOnLoad: true,
+        theme:
+          document.body.classList.contains("vscode-dark") ||
+          document.body.classList.contains("vscode-high-contrast")
+            ? "dark"
+            : "default",
+      });
+    </script>
+    <a href="2023-11-03-popup.html">[post] popover</a>
+    <h1>Vue Slider 만들어보기</h1>
+    <p>
+      모바일 앱 또는 웹사이트를 서핑하다 보면 스와이핑 하는 요소가 보인다. 이번
+      주제는 슬라이드 애니메이션을 직접 만드는 것이다.
+    </p>
+    <p>이번 주제엔 vue, typescript, scss를 사용했다.</p>
+    <p>데스크탑과 모바일 기기 모두 작동되는 라이브러리를 만들어 보자.</p>
+    <h1 id="event">Event</h1>
+    <h2 id="%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EC%A0%81%EC%9A%A9-%EB%B0%A9%EB%B2%95">
+      이벤트 적용 방법
+    </h2>
+    <p>슬라이드에 적용해야 하는 이벤트 종류는 다음과 같다.</p>
+    <ol>
+      <li>mousedown / touchstart</li>
+      <li>mousemove / touchmove</li>
+      <li>mouseup / touchend</li>
+    </ol>
+    <p>
+      슬라이드를 작동하기 위해선 이벤트 적용 순서가 중요하다.<br />
+      위의 번호 순서대로 이벤트를 적용 해야 한다.
+    </p>
+    <p>
+      move 이벤트 때문에 사용자의 의사에 상관없이 move이벤트가 발생하는것을
+      방지하기 위해 mousedown(touchstart)을 한 이후로 move 이벤트가 작동되도록
+      한다.
+    </p>
+    <p>
+      그다음 move가 다시 발생하는것을 막기위해 mouseup(touchend)을 통해
+      move이벤트가 작동하지 않도록 한다.
+    </p>
+    <h2
+      id="%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EC%A0%81%EC%9A%A9%EC%9D%80-window%EC%97%90-%ED%95%B4%EC%95%BC%ED%95%9C%EB%8B%A4"
+    >
+      이벤트 적용은 window에 해야한다.
+    </h2>
+    <p>
+      mousedown(touchstart)을 제외한 이벤트는 모두 window에 이벤트를 등록해야
+      한다.
+    </p>
+    <p>
+      슬라이더 요소에만 모든 이벤트를 등록한다면. 요소를 벗어날때 move 이벤트와
+      up(end) 이벤트가 발동하지 않는다.
+    </p>
+    <p>
+      이를 해결하기 위해 window에 이벤트를 등록하여 위와 같은 상황을 예방해야
+      한다.
+    </p>
+    <h2
+      id="%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EC%A0%81%EC%9A%A9-%EC%82%AC%EC%9D%B4%ED%81%B4"
+    >
+      이벤트 적용 사이클
+    </h2>
+    <p>
+      슬라이더의 시작 이벤트는 해당 요소에. 움직임과 끝나는 이벤트는 window에
+      등록해야 하지만 처음부터 등록할 필요도, 이벤트가 끝난 다음에도 이벤트를
+      계속 등록해줄 필요가 없다.
+    </p>
+    <p>
+      시작 이벤트에 윈도우 이벤트를 등록한뒤 끝나는 이벤트에 윈도우 이벤트를
+      삭제하는 로직을 만들자.
+    </p>
+    <p>
+      <img
+        src="../assets/img/2023-12-02-vue-slider/slider_event_cycle.png"
+        alt="slider_event_cycle.png"
+      />
+    </p>
+    <h2 id="mouse%EC%99%80-touch">mouse와 touch</h2>
+    <p>슬라이드에서 사용할 두 이벤트는 좌표를 얻는 방식이 다르다.</p>
+    <p>MouseEvent : 마우스포인터 위치에 대한 좌표를 가지고 있다.</p>
+    <p>TouchEvent : 터치에 대한 좌표를 각 배열요소가 가지고 있다.</p>
+    <h1
+      id="%EA%B8%B0%EB%B3%B8%EC%A0%81%EC%9D%B8-%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C"
+    >
+      기본적인 슬라이드
+    </h1>
+    <p>각 이벤트에 맞는 로직을 만들어서 처리한다.</p>
+    <h2 id="%EC%9B%80%EC%A7%81%EC%9D%B4%EB%8A%94-%EB%B0%A9%EB%B2%95">
+      움직이는 방법
+    </h2>
+    <p>슬라이드를 움직이기 위해서 좌표를 계산해야 한다.</p>
+    <ul>
+      <li><code>startCoord : 슬라이드 시작시 초기화 되는 좌표값</code></li>
+      <li><code>currentCoord : 현재 슬라이드의 좌표값</code></li>
+      <li>
+        <code
+          >endCoord : 슬라이드를 끝낼시 초기화 되는 좌표값 (currentCoord와
+          일치해야 한다.)</code
+        >
+      </li>
+      <li><code>moveCoord : 슬라이드를 움직인 거리값</code></li>
+    </ul>
+    <h3
+      id="%EC%99%9C-endcoord%EA%B0%80-currentcoord%EB%9E%91-%EC%9D%BC%EC%B9%98%ED%95%B4%EC%95%BC-%ED%95%A0%EA%B9%8C"
+    >
+      왜 endCoord가 currentCoord랑 일치해야 할까?
+    </h3>
+    <p>
+      endCood는 currentCoord와 좌표값이 일치해야 한다. 다음 이벤트 사이클일때
+      끝나는 좌표를 기억하여 move된 거리만큼 더해줘야 한다.
+    </p>
+    <p>currentCoord에 바로 더하면 안되는 이유는 다음 코드와 함께 확인하자.</p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-comment">//move event일때 아래 로직이 실행된다.</span>
+currentCoord.value.x = currentCoord.value.x + moveX;
+</div></code></pre>
+    <table>
+      <thead>
+        <tr>
+          <th>이벤트 번호</th>
+          <th>계산 공식</th>
+          <th>결과</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>첫번째</td>
+          <td><code>0 = 0 + 10</code></td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <td>두번째</td>
+          <td><code>10 = 10 + 20</code></td>
+          <td>30</td>
+        </tr>
+        <tr>
+          <td>세번째</td>
+          <td><code>30 = 30 + 30</code></td>
+          <td>60</td>
+        </tr>
+        <tr>
+          <td>네번째</td>
+          <td><code>60 = 60 + 40</code></td>
+          <td>100</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      문제를 발견했는가? 이벤트가 반복적으로 실행될수록 currentCoord의 값은
+      기하급수적으로 커져간다.
+    </p>
+    <p>다음은 endCoord를 통해 더한 경우다.</p>
+    <pre
+      class="hljs"
+    ><code><div>currentCoord.value.x = endCoord.value.x = moveX;
+</div></code></pre>
+    <table>
+      <thead>
+        <tr>
+          <th>이벤트 사이클</th>
+          <th>이벤트 번호</th>
+          <th>계산 공식</th>
+          <th>결과</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>첫번째 사이클</td>
+          <td>첫번째</td>
+          <td><code>0 = 0 + 10</code></td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <td>첫번째 사이클</td>
+          <td>두번째</td>
+          <td><code>10 = 0 + 20</code></td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <td>두번째 사이클</td>
+          <td>첫번째</td>
+          <td><code>20 = 20 + 10</code></td>
+          <td>30</td>
+        </tr>
+        <tr>
+          <td>두번째 사이클</td>
+          <td>두번째</td>
+          <td><code>30 = 20 + 20</code></td>
+          <td>40</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>값이 일정하게 늘어나는걸 볼 수 있다.</p>
+    <h2 id="slide-start">Slide Start</h2>
+    <p>Slide의 시작과 관련된 로직을 작성해준다.</p>
+    <ol>
+      <li>윈도우에 이벤트 등록</li>
+      <li>슬라이드 크기 지정</li>
+      <li>초기화 로직 작성</li>
+    </ol>
+    <h3 id="%EC%9C%88%EB%8F%84%EC%9A%B0-%EC%9D%B4%EB%B2%A4%ED%8A%B8">
+      윈도우 이벤트
+    </h3>
+    <p>
+      startEvent와 endEvent에서 사용할 윈도우 이벤트 등록/삭제 함수를 작성한다.
+    </p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toggleEventListeners</span>(<span class="hljs-params">add: <span class="hljs-built_in">boolean</span></span>) </span>{
+  <span class="hljs-keyword">const</span> method = add ? <span class="hljs-string">"addEventListener"</span> : <span class="hljs-string">"removeEventListener"</span>;
+  <span class="hljs-built_in">window</span>[method](<span class="hljs-string">"mousemove"</span>, handleMouseMove, { passive: <span class="hljs-literal">false</span> });
+  <span class="hljs-built_in">window</span>[method](<span class="hljs-string">"touchmove"</span>, handleTouchMove, { passive: <span class="hljs-literal">false</span> });
+  <span class="hljs-built_in">window</span>[method](<span class="hljs-string">"mouseup"</span>, finalizeSlideEnd);
+  <span class="hljs-built_in">window</span>[method](<span class="hljs-string">"touchend"</span>, finalizeSlideEnd);
+}
+</div></code></pre>
+    <h3 id="%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C-%ED%81%AC%EA%B8%B0">
+      슬라이드 크기
+    </h3>
+    <p>슬라이드의 길이를 알기 위해선 아이템의 너비를 모두 더하면 된다.</p>
+    <p>슬라이드 최대범위는 두가지의 경우가 존재한다.</p>
+    <ol>
+      <li>아이템의 너비모두 더한 값보다 슬라이드의 너비가 더 클 경우</li>
+      <li>슬라이드 너비보다 아이템의 너비를 모두 더한 값이 더 클 경우</li>
+    </ol>
+    <p>전자의 경우 <code>0</code>으로 초기화 해준다.</p>
+    <p>
+      후자의 경우 <code>슬라이드의 너비 - 모두 더한 너비</code> 를 해준다.
+      그래야 left의 최소값을 알기 때문이다.
+    </p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">calculateSliderBounds</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> offsetWidth = <span class="hljs-built_in">Array</span>.from(elSlider.value?.children ?? []).reduce(
+    <span class="hljs-function">(<span class="hljs-params">width, child</span>) =&gt;</span> width + (child?.offsetWidth ?? <span class="hljs-number">0</span>) + (option?.gap ?? <span class="hljs-number">0</span>),
+    -option?.gap ?? <span class="hljs-number">0</span>
+  );
+  <span class="hljs-keyword">const</span> parentOffsetWidth = elSlider.value?.parentElement?.offsetWidth || <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">return</span> {
+    width: offsetWidth,
+    height: elSlider.value?.offsetHeight,
+    maxLeft: <span class="hljs-number">0</span>,
+    minLeft:
+      offsetWidth &lt; parentOffsetWidth ? <span class="hljs-number">0</span> : parentOffsetWidth - offsetWidth
+  };
+}
+</div></code></pre>
+    <h3 id="%EC%B4%88%EA%B8%B0%ED%99%94-%EB%A1%9C%EC%A7%81">초기화 로직</h3>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">initializeSlideStart</span>(<span class="hljs-params">event: MouseEvent | TouchEvent</span>) </span>{
+  toggleEventListeners(<span class="hljs-literal">true</span>);
+  startCoord.value = {
+    x: event?.pageX ?? event.touches[<span class="hljs-number">0</span>].pageX,
+    y: event?.pageY ?? event.touches[<span class="hljs-number">0</span>].pageY
+  };
+  sliderBounds.value = calculateSliderBounds();
+}
+</div></code></pre>
+    <p>
+      <code>event?.pageX ?? event.touches[0].pageX</code><br />
+      마우스 이벤트일때 event.pageX에 데이터가 있다.<br />
+      터치 이벤트 일때 event.touches에 데이터가 있다.
+    </p>
+    <p>
+      <code>sliderBounds.value = calculateSliderBounds()</code><br />
+      매번 시작 이벤트마다 슬라이더의 크기를 확인하여 아이템이 추가되거나 크기가
+      변경되는 상황 등에서 슬라이더가 원활하게 작동되도록 한다.
+    </p>
+    <h2 id="slide-move">Slide Move</h2>
+    <p>Slide Move와 관련된 로직을 작성해준다.</p>
+    <ol>
+      <li>좌표계산</li>
+      <li>범위 설정</li>
+    </ol>
+    <h3 id="%EC%A2%8C%ED%91%9C%EA%B3%84%EC%82%B0">좌표계산</h3>
+    <p>마우스와 터치 이벤트에서 공통적으로 사용할 함수를 작성한다.</p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleMove</span>(<span class="hljs-params">
+  moveX: <span class="hljs-built_in">number</span>,
+  moveY: <span class="hljs-built_in">number</span>,
+  event: MouseEvent | TouchEvent
+</span>) </span>{
+  <span class="hljs-keyword">if</span> (canSliderMove.value === <span class="hljs-literal">undefined</span>) {
+    canSliderMove.value = <span class="hljs-built_in">Math</span>.abs(moveX) &gt; <span class="hljs-built_in">Math</span>.abs(moveY);
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (canSliderMove.value) {
+    event.preventDefault();
+    isMoved.value = <span class="hljs-literal">true</span>;
+    moveCoord.value.x = moveX;
+    currentCoord.value.x = endCoord.value.x + moveX;
+    clampSlideCoord();
+  }
+}
+</div></code></pre>
+    <p>
+      <code>canSliderMove.value = Math.abs(moveX) &gt; Math.abs(moveY);</code
+      ><br />
+      슬라이드 또는 스크롤인지 판단하는 로직이다.
+    </p>
+    <p>
+      <code>else if (canSliderMove.value) {...}</code><br />
+      슬라이드임을 판단한뒤 preventDefault()로 스크롤을 방지한다.<br />
+      계산된 좌표를 업데이트 해준다.<br />
+      최소, 최대 left를 제한하는 함수를 함께 실행한다.
+    </p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleMouseMove</span>(<span class="hljs-params">event: MouseEvent</span>) </span>{
+  handleMove(
+    event.pageX - startCoord.value.x,
+    event.pageX - startCoord.value.y - startCoord.value.y,
+    event
+  );
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleTouchMove</span>(<span class="hljs-params">event: TouchEvent</span>) </span>{
+  handleMove(
+    event.touches[<span class="hljs-number">0</span>].pageX - startCoord.value.x,
+    event.touches[<span class="hljs-number">0</span>].pageY - startCoord.value.y,
+    event
+  );
+}
+</div></code></pre>
+    <p>각 이벤트에 맞는 좌표를 파라미터로 넣어준다.</p>
+    <h3 id="%EB%B2%94%EC%9C%84%EC%A0%9C%ED%95%9C">범위제한</h3>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clampSlideCoord</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> minLeftLimit = sliderBounds.value.minLeft - <span class="hljs-number">60</span>;
+  currentCoord.value.x = <span class="hljs-built_in">Math</span>.min(
+    <span class="hljs-number">60</span>,
+    <span class="hljs-built_in">Math</span>.max(currentCoord.value.x, minLeftLimit)
+  );
+  isClampLimit.value =
+    currentCoord.value.x === <span class="hljs-number">60</span> || currentCoord.value.x === minLeftLimit;
+}
+</div></code></pre>
+    <p>
+      <code>Math.min(60,Math.max(currentCoord.value.x, minLeftLimit))</code
+      ><br />
+      left가 최대 60px 이거나, minLeft - 60px 까지를 left가 가능한 범위로
+      설정한다.
+    </p>
+    <h2 id="slide-end">Slide End</h2>
+    <p>Slide End와 관련된 로직을 작성해준다.</p>
+    <ol>
+      <li>초기화 로직 작성</li>
+    </ol>
+    <h3 id="%EC%B4%88%EA%B8%B0%ED%99%94-%EB%A1%9C%EC%A7%81">초기화 로직</h3>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">finalizeSlideEnd</span>(<span class="hljs-params">event: MouseEvent | TouchEvent</span>) </span>{
+  directionOfSlide.value = moveCoord.value.x &lt; <span class="hljs-number">0</span> ? <span class="hljs-string">"left"</span> : <span class="hljs-string">"right"</span>;
+  endCoord.value = { x: currentCoord.value.x, y: currentCoord.value.y };
+  checkEndCoordOver();
+  isMoved.value = <span class="hljs-literal">false</span>;
+  isClampLimit.value = <span class="hljs-literal">false</span>;
+  moveCoord.value.x = <span class="hljs-number">0</span>;
+  isEndCoordOver.value = <span class="hljs-literal">false</span>;
+  canSliderMove.value = <span class="hljs-literal">undefined</span>;
+  resetSlideCoordOfBoundary();
+  toggleEventListeners(<span class="hljs-literal">false</span>);
+}
+</div></code></pre>
+    <p>위 함수가 하는 역할이다.</p>
+    <ul>
+      <li>endCoord를 currentCoord와 일치하도록 업데이트 한다,</li>
+      <li>슬라이드가 끝나는 이벤트엔 설정값들을 기본값으로 초기화 한다.</li>
+      <li>범위를 벗어났을때 위치를 초기화한다.</li>
+      <li>윈도우 이벤트 등록을 해제한다.</li>
+    </ul>
+    <h3
+      id="%EB%B2%94%EC%9C%84%EB%A5%BC-%EB%B2%97%EC%96%B4%EB%82%AC%EC%9D%84%EB%95%8C-%EC%B4%88%EA%B8%B0%ED%99%94"
+    >
+      범위를 벗어났을때 초기화
+    </h3>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">resetSlideCoordOfBoundary</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">let</span> isLimit = <span class="hljs-literal">false</span>;
+  <span class="hljs-keyword">const</span> { maxLeft, minLeft } = sliderBounds.value;
+
+  <span class="hljs-keyword">if</span> (endCoord.value.x &gt; maxLeft) {
+    endCoord.value.x = maxLeft;
+    isLimit = <span class="hljs-literal">true</span>;
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (endCoord.value.x &lt; minLeft) {
+    endCoord.value.x = minLeft;
+    isLimit = <span class="hljs-literal">true</span>;
+  }
+
+  <span class="hljs-keyword">if</span> (isLimit) {
+    currentCoord.value.x = endCoord.value.x;
+  }
+}
+</div></code></pre>
+    <p>벗어난 범위를 판단하여 좌표를 업데이트 해주는 함수이다.</p>
+    <h2 id="%ED%8A%B8%EB%9E%9C%EC%A7%80%EC%85%98-%EC%A0%81%EC%9A%A9">
+      트랜지션 적용
+    </h2>
+    <p>
+      <code>transition</code> 속성을 사용하여 기초적인 애니메이션 효과를
+      넣어보자.
+    </p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">startSlideTransition</span>(<span class="hljs-params"></span>) </span>{
+  clearTimeout(transitionTimerId.value);
+  isSlideTransition.value = <span class="hljs-literal">true</span>;
+  elSlider.value?.classList.add(<span class="hljs-string">"slider--transition"</span>);
+  transitionTimerId.value = setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    elSlider.value?.classList.remove(<span class="hljs-string">"slider--transition"</span>);
+    isSlideTransition.value = <span class="hljs-literal">false</span>;
+  }, <span class="hljs-number">250</span>);
+}
+</div></code></pre>
+    <p>
+      특정 상황에서 애니메이션을 동작시키기 위해 함수를 작성했다.<br />
+      이 함수를 <code>resetSlideCoordOfBoundary</code>의 마지막 if 실행 부분에
+      추가하여 슬라이드가 범위를 벗어났을때 부드럽게 범위내로 돌아오도록 하자.
+    </p>
+    <h2 id="vue-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%A1%B0">
+      Vue 컴포넌트 구조
+    </h2>
+    <p>
+      기본적인 기능을 구현했으니 컴포넌트 구조를 작성하여 슬라이더가 작동되도록
+      하자
+    </p>
+    <p>
+      다음과 같은 태그 구조로 슬라이드를 컴포넌트화 할것이다.
+      <img
+        src="../assets//img/2023-12-02-vue-slider/tag_structure.png"
+        alt="tag_structure"
+      />
+    </p>
+    <p>
+      Slide: slide container.<br />
+      Slider: event가 적용되는 요소 SlideItem: Slider 내부에 들어갈 요소
+    </p>
+    <p>코드로 표현하면 다음과 같다.</p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-tag">&lt;<span class="hljs-name">Slide</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">SlideItem</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">SlideItem</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">Slide</span>&gt;</span>
+</div></code></pre>
+    <h3 id="slide">Slide</h3>
+    <pre class="hljs"><code><div>&lt;script setup lang=&quot;ts&quot;&gt;
+import { computed } from &quot;vue&quot;;
+import { SlideOption } from &quot;../type&quot;;
+import DefaultSlider from &quot;./Sliders/DefaultSlider.vue&quot;;
+const props = defineProps&lt;{ slideOption: SlideOption }&gt;();
+const sliderComponent = computed(() =&gt; {
+  if (props.slideOption.sliderType === &quot;default&quot;) return DefaultSlider;
+});
+&lt;/script&gt;
+&lt;template&gt;
+  &lt;div class=&quot;slide-container&quot;&gt;
+    &lt;component :is=&quot;sliderComponent&quot; :option=&quot;props.slideOption&quot;&gt;
+      &lt;slot&gt;&lt;/slot&gt;
+    &lt;/component&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;style scoped lang=&quot;scss&quot;&gt;
+.slide-container {
+  height: inherit;
+}
+&lt;/style&gt;
+</div></code></pre>
+    <p>
+      vue component 태그를 이용하여 옵션으로 선택된 슬라이더를 렌더링한다.<br />
+      slot을 이용하여 SlideItem이 Slider내부 slot에 렌더링 되도록 한다.
+    </p>
+    <h3 id="default-slider">Default Slider</h3>
+    <pre class="hljs"><code><div>&lt;script setup lang=&quot;ts&quot;&gt;
+import { ref } from &quot;vue&quot;;
+import useSlider from &quot;./useSlider&quot;;
+import { SlideOption } from &quot;../../type&quot;;
+const props = defineProps&lt;{
+  option: SlideOption;
+}&gt;();
+const sliderElement = ref&lt;HTMLElement&gt;();
+// useSlider는 앞서 작성한 슬라이드 관련 로직들을 처리하는 함수임.
+const { currentCoord, initializeSlideStart } = useSlider(
+  sliderElement,
+  props.option
+);
+&lt;/script&gt;
+&lt;template&gt;
+  &lt;div
+    class=&quot;slider-container&quot;
+    @mousedown=&quot;initializeSlideStart&quot;
+    @touchstart=&quot;initializeSlideStart&quot;
+  &gt;
+    &lt;div
+      ref=&quot;sliderElement&quot;
+      class=&quot;slider&quot;
+      :style=&quot;{
+        transform: `translateX(${currentCoord.x}px)`,
+        gap: props.option.gap + 'px',
+        top: currentCoord.y + 'px'
+      }&quot;
+    &gt;
+      &lt;!-- slot에 SliderItem 이 들어간다. --&gt;
+      &lt;slot&gt;&lt;/slot&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;style scoped lang=&quot;scss&quot;&gt;
+.slider {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  min-width: 100%;
+  flex-wrap: nowrap;
+  height: inherit;
+  &amp;--transition {
+    transition: 0.25s linear all;
+  }
+}
+&lt;/style&gt;
+</div></code></pre>
+    <p>
+      slider의 엘리먼트 요소를 useSlider()의 파라미터로 넣어주어 .slider 요소가
+      슬라이드되는 요소임을 알려준다.
+    </p>
+    <blockquote>
+      <p>
+        그림과는 약간 다르게 slider위에 부모태그로 slider-container가 존재한다.
+        slider는 flex레이아웃으로 gap을 설정하는걸 볼 수 있다. gap 부분엔
+        event가 적용이 되지 않는다. 따라서 부모태그에 이벤트를 등록하여 gap
+        부분에도 이벤트가 정상적으로 동작하도록 한다.
+      </p>
+    </blockquote>
+    <p>
+      <code>position: relative</code><br />
+      이 포지션 정책을 사용하여 다른 요소와 겹치지 않도록 방지한다.<br />
+      좌표에 따라 요소가 변동될 수 있는 포지션 정책이다.
+    </p>
+    <h3 id="slide-item">Slide Item</h3>
+    <pre
+      class="hljs"
+    ><code><div>&lt;script setup lang=&quot;ts&quot;&gt;&lt;/script&gt;
+&lt;template&gt;
+  &lt;div class=&quot;slide-item&quot;&gt;
+    &lt;slot&gt;&lt;/slot&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;style scoped lang=&quot;scss&quot;&gt;
+.slide-item {
+  flex-shrink: 0;
+}
+&lt;/style&gt;
+</div></code></pre>
+    <p>
+      <code>flex-shrink: 0</code><br />
+      부모태그가 flex 레이아웃이니 flex에 의해 크기가 조정되는걸 막아준다.
+    </p>
+    <h2
+      id="%EA%B8%B0%EB%B3%B8%EC%A0%81%EC%9D%B8-%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C-%EA%B2%B0%EA%B3%BC"
+    >
+      기본적인 슬라이드 결과
+    </h2>
+    <p>기본적인 슬라이드 로직들을 작성했으니 결과를 보자.</p>
+    <p>아래와 같은 상황일때를 집중해서 보자.</p>
+    <ol>
+      <li>슬라이더의 범위를 벗어났을때</li>
+      <li>슬라이드를 끝냈을때</li>
+    </ol>
+    <p>
+      <img
+        src="../assets/img/2023-12-02-vue-slider/default_slider.gif"
+        alt="default_slider"
+      />
+    </p>
+    <p>
+      중간에 슬라이드를 끝냈을때 밋밋하게 멈추는 느낌이 있지만, 원하는대로 잘
+      동작한다.
+    </p>
+    <h1 id="free-slider">Free Slider</h1>
+    <p>중간에 슬라이드가 밋밋하게 끝나는걸 부드럽게 멈추도록 해보자.</p>
+    <h2 id="%EC%86%8D%EB%8F%84">속도</h2>
+    <p>
+      먼저 슬라이드를 얼마나 빠르게 움직였느냐를 판단하기 위해 속도를 계산해야
+      한다.
+    </p>
+    <p>
+      <code>속도를 구하는 공식</code><br />
+      $$ v = \frac{\Delta d}{\Delta t} $$
+    </p>
+    <h3 id="%EC%8B%9C%EA%B0%84%EB%B3%80%ED%99%94%EB%9F%89">시간변화량</h3>
+    <p>
+      시간변화량을 구하는 공식은 다음과 같다.<br />
+      $$ \Delta t = t_{\text{최종}} - t_{\text{초기}} $$
+    </p>
+    <p>
+      초기 시간은 start이벤트에서 측정한다.<br />
+      최종 시간은 end이벤트에서 측정한다.
+    </p>
+    <p>측정 방식은 간단하게 <code>Date.now()</code>를 사용한다.</p>
+    <h3 id="%EA%B1%B0%EB%A6%AC-%EB%B3%80%ED%99%94%EB%9F%89">거리 변화량</h3>
+    <p>
+      거리의 변화량을 구하는 공식은 다음과 같다.<br />
+      $$ \Delta d = d_{\text{최종}} - d_{\text{초기}} $$
+    </p>
+    <p>
+      위 과정은 이미 move 이벤트에서 처리하고 있으니 moveCoord 변수를 사용한다.
+    </p>
+    <h3 id="%EC%86%8D%EB%8F%84%EB%A5%BC-%EA%B5%AC%ED%95%B4%EB%B3%B4%EC%9E%90">
+      속도를 구해보자
+    </h3>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">calculateVelocity</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> speed = !!moveCoord.value.x
+    ? moveCoord.value.x / (deltaTime.value * <span class="hljs-number">0.1</span>)
+    : <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">return</span> speed;
+}
+</div></code></pre>
+    <p>
+      <code>true</code>: moveCoord의 값이 있을땐 속도 공식을 이용하여 계산한다.
+      Date.now()로 측정하면 분모의 값이 커지기 때문에 값을 줄여주었다.<br />
+      <code>false</code>: moveCoord의 값이 0일땐 속도도 0으로 한다.
+    </p>
+    <h2 id="freeslidervue">FreeSlider.vue</h2>
+    <p>
+      Default와는 다르게 script부분만 설명하겠다. template와 style 부분은 코드가
+      동일하기 때문이다.
+    </p>
+    <p>
+      기존의 슬라이더 로직을 기본으로 가져간 상태로 부드러운 효과를 넣기위해
+      약간의 수정이 필요하다.
+    </p>
+    <p>각 이벤트에 추가적인 기능이 동작할 수 있도록 콜백함수를 추가한다.</p>
+    <ol>
+      <li><code>onSlideStart</code> : initializeSlideStart의 콜백</li>
+      <li><code>onSlideEnd</code> : finalizeSlideEnd의 콜백</li>
+      <li><code>onSlideMove</code> : handleMove의 콜백</li>
+    </ol>
+    <pre class="hljs"><code><div>
+<span class="hljs-keyword">import</span> { ref } <span class="hljs-keyword">from</span> <span class="hljs-string">"vue"</span>;
+<span class="hljs-keyword">import</span> useSlider <span class="hljs-keyword">from</span> <span class="hljs-string">"./useSlider"</span>;
+<span class="hljs-keyword">import</span> { SlideOption } <span class="hljs-keyword">from</span> <span class="hljs-string">"../../type"</span>;
+
+<span class="hljs-keyword">const</span> props = defineProps&lt;{
+  option: SlideOption;
+}&gt;();
+<span class="hljs-keyword">const</span> sliderElement = ref&lt;HTMLElement&gt;();
+<span class="hljs-keyword">const</span> {
+  onSlideEnd,
+  onSlideStart,
+  currentCoord,
+  endCoord,
+  initializeSlideStart,
+  isMoved,
+  isClampLimit,
+  isEndCoordOver,
+  slideVelocity,
+  clampSlideCoord,
+  resetSlideCoordOfBoundary,
+} = useSlider(sliderElement, props.option);
+<span class="hljs-keyword">const</span> animationFrameId = ref(<span class="hljs-number">0</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">animateSlideDeceleration</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> friction = <span class="hljs-number">0.98</span>; <span class="hljs-comment">// 감속계수</span>
+  <span class="hljs-keyword">let</span> displacement = slideVelocity.value;
+
+  <span class="hljs-keyword">if</span> (!isClampLimit.value &amp;&amp; <span class="hljs-built_in">Math</span>.abs(displacement) &gt; <span class="hljs-number">0.45</span>) {
+    currentCoord.value.x += displacement;
+    endCoord.value.x = currentCoord.value.x;
+    slideVelocity.value *= friction;
+    clampSlideCoord();
+    animationFrameId.value = requestAnimationFrame(animateSlideDeceleration);
+  }
+  <span class="hljs-keyword">else</span>{
+    resetSlideCoordOfBoundary()
+  }
+}
+
+onSlideStart.value = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  cancelAnimationFrame(animationFrameId.value);
+};
+onSlideEnd.value = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">if</span> (!isMoved.value || isEndCoordOver.value) {
+    resetSlideCoordOfBoundary();
+    <span class="hljs-keyword">return</span>;
+  }
+  animationFrameId.value = requestAnimationFrame(animateSlideDeceleration);
+};
+</div></code></pre>
+    <p>
+      <code>onSlideStart.value = () =&gt; {...}</code>: 기존에 있던 애니메이션을
+      종료하는 함수를 호출한다.
+    </p>
+    <p>
+      <code>onSlideEnd.value = () =&gt; {...}</code>: 움직임이 없었거나,
+      애니메이션 이전 이미 슬라이드의 범위를 넘었다면 위치 초기화 함수를
+      호출하고 애니메이션을 실행하지 않는다.
+    </p>
+    <p>
+      <code>function animateSlideDeceleration() {...}</code>: 산출된 속도의 값을
+      프레임마다 감속하여 부드럽게 멈추는 효과를 주는 함수다.
+    </p>
+    <blockquote>
+      <p>requestAnimationFrame(): 주사율에 맞춰 콜백함수를 실행한다.</p>
+    </blockquote>
+    <h2 id="%EA%B2%B0%EA%B3%BC">결과</h2>
+    <p>아래와 같은 상황일때를 집중해서 보자.</p>
+    <ol>
+      <li>슬라이드를 끝냈을때 부드럽게 움직이는 효과</li>
+    </ol>
+    <p>
+      <img
+        src="../assets/img/2023-12-02-vue-slider/free_slider.gif"
+        alt="free_slider"
+      />
+    </p>
+    <h1 id="left-slider">Left Slider</h1>
+    <p>슬라이드 아이템이 Slide의 좌측에 맞춰서 슬라이드 되도록 하자.</p>
+    <h2 id="%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C-%EC%A0%9C%ED%95%9C">
+      슬라이드 제한
+    </h2>
+    <p>
+      슬라이드 아이템을 인덱스로 선택하여 할 것이기 때문에 오류가 발생하지
+      않도록 인덱스의 범위를 제한해야 한다.
+    </p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-keyword">const</span> clampIndex = <span class="hljs-function">(<span class="hljs-params">index: <span class="hljs-built_in">number</span>, maxIndex: <span class="hljs-built_in">number</span></span>) =&gt;</span> {
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, <span class="hljs-built_in">Math</span>.min(index, maxIndex));
+};
+</div></code></pre>
+    <h2 id="%EC%A2%8C%ED%91%9C%EA%B3%84%EC%82%B0">좌표계산</h2>
+    <p>
+      슬라이드가 끝났을때 endCoord에 가까운 슬라이드아이템을 선택하여 좌측에
+      정렬해야 한다.
+    </p>
+    <p>판단하는 방법은 다음과 같다.</p>
+    <p>
+      <img
+        src="../assets/img/2023-12-02-vue-slider/left_judgment.png"
+        alt="left_judgment"
+      />
+    </p>
+    <p>
+      슬라이드는 빨간색 부분을 기준으로 왼쪽 또는 오른쪽으로 이동한다.<br />
+      따라서 판단 기준은 다음과 같다.
+    </p>
+    <ul>
+      <li>endCoord가 아이템 영역 내부에 있어야 한다.</li>
+      <li>
+        왼쪽으로 슬라이드 할때
+        <ul>
+          <li>
+            endCoord가 아이템의 중심을 기준으로 우측에 있을때 해당 아이템의 다음
+            아이템으로 이동했음을 판단한다.
+          </li>
+          <li>
+            endCoord가 아이템의 중심을 기준으로 좌측에 있을때 해당 아이템으로
+            이동했음으로 판단한다.
+          </li>
+        </ul>
+      </li>
+      <li>
+        오른쪽으로 슬라이드 할때
+        <ul>
+          <li>
+            endCoord가 아이템의 중심을 기준으로 우측에 있을때 해당 아이템에서
+            다음 아이템으로 이동했음으로 판단한다.
+          </li>
+          <li>
+            endCoord가 아이템의 중심을 기준으로 좌측에 있을때 해당 아이템으로
+            이동했음으로 판단한다.
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-keyword">const</span> calculateNextSlideIndex = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> slideItems = <span class="hljs-built_in">Array</span>.from(sliderElement.value.children);
+  <span class="hljs-keyword">let</span> findIndex;
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> [index, slideItem] of slideItems.entries()) {
+    <span class="hljs-keyword">const</span> absEndCoordX = <span class="hljs-built_in">Math</span>.abs(endCoord.value.x);
+    <span class="hljs-keyword">const</span> left = slideItem.offsetLeft;
+    <span class="hljs-keyword">const</span> center = left + (slideItem.offsetWidth + props.option.gap) / <span class="hljs-number">2</span>;
+    <span class="hljs-keyword">const</span> isInside =
+      left &lt; absEndCoordX &amp;&amp;
+      absEndCoordX &lt; left + slideItem.offsetWidth + props.option.gap;
+
+    <span class="hljs-comment">// 슬라이드가 현재 선택 범위 안에 있는지 확인</span>
+    <span class="hljs-keyword">if</span> (isInside) {
+      <span class="hljs-keyword">const</span> isRightSlide = directionOfSlide.value === <span class="hljs-string">"right"</span>;
+      <span class="hljs-comment">// 다음 슬라이드를 선택해야 하는지 여부 결정</span>
+      <span class="hljs-keyword">const</span> shouldSelectNext =
+        (isRightSlide &amp;&amp; absEndCoordX &gt;= center) ||
+        (!isRightSlide &amp;&amp; absEndCoordX &gt; center);
+
+      <span class="hljs-comment">// 인덱스를 범위 내로 제한</span>
+      findIndex = shouldSelectNext
+        ? clampIndex(index + <span class="hljs-number">1</span>, slideItems.length - <span class="hljs-number">1</span>)
+        : index;
+      <span class="hljs-keyword">break</span>;
+    }
+  }
+
+  <span class="hljs-comment">// 선택된 인덱스 반환, 없다면 현재 슬라이드 인덱스 반환</span>
+  <span class="hljs-keyword">return</span> findIndex ?? currentSlide.value;
+};
+</div></code></pre>
+    <h2 id="left-%EC%A0%95%EB%A0%AC">left 정렬</h2>
+    <p>
+      가장 좌측에 정렬하기 위해서는 특정 아이템의 offseLeft의 값으로 업데이트
+      해준다. 부모의 포지션 정책이 relative 이기 때문에 부모로부터의 떨어진 값을
+      구할 수 있다.
+    </p>
+    <pre
+      class="hljs"
+    ><code><div><span class="hljs-keyword">const</span> moveToSlide = <span class="hljs-function">(<span class="hljs-params">slideIndex: <span class="hljs-built_in">number</span></span>) =&gt;</span> {
+  currentCoord.value.x = -sliderElement.value.children[slideIndex].offsetLeft;
+  currentSlide.value = slideIndex;
+  endCoord.value.x = currentCoord.value.x;
+  startSlideTransition();
+};
+</div></code></pre>
+    <h2 id="%EC%86%8D%EB%8F%84-%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0">
+      속도 이용하기
+    </h2>
+    <p>
+      앞서 free slider를 만들면서 속도를 구했다.<br />
+      부호 상관없이 속도의 값이 클수록 사용자가 빠르게 슬라이드 했음을 알 수
+      있는 값이다.<br />
+      사용자 특정 위치까지 슬라이드를 움직일 필요없이 속도를 이용하여 다음
+      아이템을 보여주자.
+    </p>
+    <pre class="hljs"><code><div><span class="hljs-comment">//속도의 크기</span>
+<span class="hljs-keyword">const</span> VELOCITY_THRESHOLD = <span class="hljs-number">3</span>;
+</div></code></pre>
+    <h2 id="onslideend-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EC%BD%9C%EB%B0%B1">
+      onSlideEnd 이벤트 콜백
+    </h2>
+    <p>
+      사용자가 길게 슬라이드 하는경우와 빠르게 하는경우를 고려하여 로직을
+      작성했다.
+    </p>
+    <pre
+      class="hljs"
+    ><code><div>onSlideEnd.value = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> isNextSlide = slideVelocity.value &lt;= -VELOCITY_THRESHOLD;
+  <span class="hljs-keyword">const</span> isPreviousSlide = slideVelocity.value &gt;= VELOCITY_THRESHOLD;
+  <span class="hljs-keyword">if</span> (
+    <span class="hljs-built_in">Math</span>.abs(moveCoord.value.x) &gt;
+    sliderElement.value.children[<span class="hljs-number">0</span>].offsetWidth / <span class="hljs-number">2</span> 
+  ) {
+    moveToSlide(calculateNextSlideIndex());
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (isNextSlide) {
+    moveToSlide(currentSlide.value + <span class="hljs-number">1</span>);
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (isPreviousSlide) {
+    moveToSlide(currentSlide.value - <span class="hljs-number">1</span>);
+  } <span class="hljs-keyword">else</span> {
+    moveToSlide(currentSlide.value);
+  }
+};
+</div></code></pre>
+    <h2 id="%EA%B2%B0%EA%B3%BC">결과</h2>
+    <p>아래와 같은 상황일때를 집중해서 보자.</p>
+    <ol>
+      <li>슬라이드를 길게 했을때</li>
+      <li>슬라이드를 빠르게 했을때</li>
+    </ol>
+    <p>
+      <img
+        src="../assets/img/2023-12-02-vue-slider/left_slider.gif"
+        alt="left_slider"
+      />
+    </p>
+    <h1
+      id="vue-slide%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%8B%A4%EB%A5%B8-%EA%B2%B0%EA%B3%BC%EB%AC%BC"
+    >
+      Vue Slide를 이용한 다른 결과물
+    </h1>
+    <p>
+      유튜브 뮤직 레이아웃이 Vue Slide를 활용한 예시를 가장 잘보여줄 수 있을
+      거라 생각하여 만들어 보았다.
+    </p>
+    <p>
+      <img
+        src="../assets/img/2023-12-02-vue-slider/slider_result.gif"
+        alt="slider_result"
+      />
+    </p>
+    <p>
+      <img
+        src="../assets/img/2023-12-02-vue-slider/mobild_slider_result.gif"
+        alt="slider_mobile_result"
+      />
+    </p>
+  </body>
+</html>
