@@ -1,7 +1,6 @@
 const script = () => {
   const contentDom = document.getElementById("content");
   const navItems = document.querySelectorAll(".nav-item > a");
-
   const fetchPage = (url) => {
     fetch(url)
       .then((res) => res.text())
