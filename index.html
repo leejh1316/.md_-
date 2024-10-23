@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>게시글</title>
+
+    <!-- styled cdn -->
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css"
+    />
+    <style>
+      :root {
+        font-family: "Pretendard";
+        font-size: 16px;
+        letter-spacing: 0.025rem;
+        line-height: 20px;
+      }
+      body {
+        max-width: 1420px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .nav {
+        display: flex;
+        gap: 16px;
+        margin-top: 24px;
+        margin-bottom: 12px;
+      }
+      .nav > li {
+        list-style: none;
+      }
+      #content {
+        margin-bottom: 70px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <nav class="nav">
+        <li class="nav-item">
+          <a href="_posts/2023-12-02-vue-slider.html">[Post] Vue Slider</a>
+        </li>
+        <li class="nav-item">
+          <a href="_posts/2023-11-03-popup.html">[Post] Popup</a>
+        </li>
+      </nav>
+      <section id="content"></section>
+    </div>
+    <script type="module" src="/script.js"></script>
+  </body>
+</html>
